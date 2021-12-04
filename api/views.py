@@ -65,7 +65,7 @@ def getScript(request, pk):
 def createScript(request):
     data = request.data
     script = Script.objects.create(
-        body=data['body']
+        body=data
     )
     serializer = ScriptSerializer(script, many=False)
 
