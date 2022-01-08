@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Script
 from .serializers import ScriptSerializer
-
+from .functions import execute
 # Create your views here.
 
 
@@ -34,6 +34,12 @@ def getRoutes(request):
             'method': 'PUT',
             'body': {'body': ""},
             'description': 'Creates an existing script with data sent in post request'
+        },
+        {
+            'Endpoint': '/scripts/id/execute/',
+            'method': 'GET',
+            'body': None,
+            'description': 'Returns a script'
         },
         {
             'Endpoint': '/scripts/id/delete/',
@@ -89,3 +95,13 @@ def deleteScript(request, pk):
     script = Script.objects.get(id=pk)
     script.delete()
     return Response('Script was deleted!')
+
+
+@api_view(['GET'])
+def executeScript(request, pk):
+    scripts = Script.objects.get(id=pk)
+    serializer = ScriptSerializer(scripts, many=False)
+    
+    execute(scripts)
+    
+    return Response(serializer.data)
