@@ -26,7 +26,7 @@ def getRoutes(request):
         {
             'Endpoint': '/scripts/create/',
             'method': 'POST',
-            'body': {'body': ""},
+            'body': {'body': {}},
             'description': 'Creates new script with data sent in post request'
         },
         {
@@ -102,6 +102,6 @@ def executeScript(request, pk):
     scripts = Script.objects.get(id=pk)
     serializer = ScriptSerializer(scripts, many=False)
     
-    execute(scripts)
+    execute(serializer.data)
     
     return Response(serializer.data)
