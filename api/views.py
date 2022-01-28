@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Script
 from .serializers import ScriptSerializer
-from .execution import execute
+from .execution import process
 # Create your views here.
 
 
@@ -102,6 +102,6 @@ def executeScript(request, pk):
     scripts = Script.objects.get(id=pk)
     serializer = ScriptSerializer(scripts, many=False)
     
-    res = execute(serializer.data)
+    res = process(serializer.data)
     
     return Response(res)
