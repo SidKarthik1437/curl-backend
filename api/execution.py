@@ -18,20 +18,16 @@ def execute(op, input, data):
     if op == 'Add':
         res = add(int(data[input[0]['source']]), int(data[input[1]['source']]))
         # print(res)
-        return str(res)
     elif op == 'Sub':
-        res, index = sub(int(data[index]), int(data[index+1]))
-        print(res)
-        print(index)
+        res = sub(int(data[input[0]['source']]), int(data[input[1]['source']]))
+        
     elif op == 'Mul':
-        res, index = mul(int(data[index]), int(data[index+1]))
-        print(res)
-        print(index)
+        res = mul(int(data[input[0]['source']]), int(data[input[1]['source']]))
+     
     elif op == 'Div':
-        res, index = div(int(data[index]), int(data[index+1]))
-        print(res)
-        print(index)
+        res = div(int(data[input[0]['source']]), int(data[input[1]['source']]))
     
+    return str(res)
     
 
 def process(dump):
@@ -84,14 +80,6 @@ def process(dump):
     
     op = execute(((root['source'].split('_'))[0]), root_inputs, data)
     print(op)
-    
-    # for j in root_inputs:
-    #     nid = indexing(j['source'])
-    #     var= nid.split('_')[0][0]
-    #     if var =='O':
-    #         back_inputs = backtrace(j['source'], edges)
-    #         execute(((j['source'].split('_'))[0]), back_inputs, data)
-
 
     
     # return({'elements': elements, 
