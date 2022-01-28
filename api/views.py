@@ -102,6 +102,6 @@ def executeScript(request, pk):
     scripts = Script.objects.get(id=pk)
     serializer = ScriptSerializer(scripts, many=False)
     
-    execute(serializer.data)
+    res = execute(serializer.data)
     
-    return Response(serializer.data)
+    return Response(res)
