@@ -7,9 +7,23 @@ def backtrace(id, edges):
     inputs = []
     for i in edges:
         if i['target'] == id:
-            inputs.append(i)       
-    
+            inputs.append(i)   
+            
+        # backtrack(i)
     return inputs
+
+# def backtrack(root_i):
+#     for k in edges:
+#         if (root_i['source'] == k['target']):
+#             nid = indexing(k['source'])
+#             var= nid.split('_')[0][0]
+#             if var =='O':
+#                 back_inputs = backtrace(k['source'], edges)
+#                 # print(((k['source'].split('_'))[0]), back_inputs, data)
+#                 data[k['source']] = (execute(((k['source'].split('_'))[0]), back_inputs, data))
+#                 root_inputs.append(k)
+#             if var == 'V':
+#                 root_inputs.append(k)
 
 def execute(op, input, data):
     # print(data[input[0]['source']])
@@ -64,6 +78,7 @@ def process(dump):
     for i in edges:
         if (i['source'] == src):
             root = i 
+        
             
     for k in edges:
         if (root['source'] == k['target']):
@@ -82,14 +97,14 @@ def process(dump):
     print(op)
 
     
-    # return({'elements': elements, 
-    #         'edges': edges, 
-    #         'data': data,
-    #         'root': root,
-    #         'root-inputs': root_inputs,
-    #         'backed-inputs': back_inputs,
-    #         'output': op
-    #         })
-    return op
+    return({'elements': elements, 
+            'edges': edges, 
+            'data': data,
+            'root': root,
+            'root-inputs': root_inputs,
+            'backed-inputs': back_inputs,
+            'output': op
+            })
+    # return op
 
     
