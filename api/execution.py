@@ -97,14 +97,14 @@ def process(dump):
     print(op)
 
     
-    return({'elements': elements, 
-            'edges': edges, 
-            'data': data,
-            'root': root,
-            'root-inputs': root_inputs,
-            'backed-inputs': back_inputs,
-            'output': op
-            })
-    # return op
+    # return({'elements': elements, 
+    #         'edges': edges, 
+    #         'data': data,
+    #         'root': root,
+    #         'root-inputs': root_inputs,
+    #         'backed-inputs': back_inputs,
+    #         'output': op
+    #         })
+    return op
 
     
