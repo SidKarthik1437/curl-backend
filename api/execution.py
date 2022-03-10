@@ -91,7 +91,7 @@ def process(dump):
                 root_inputs.append(k)
             if var == 'V':
                 root_inputs.append(k)
-    # print(((root['source'].split('_'))[0]), root_inputs, data)
+    print(((root['source'].split('_'))[0]), root_inputs, data)
     
     op = execute(((root['source'].split('_'))[0]), root_inputs, data)
     print(op)
