@@ -2,7 +2,10 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Script
+from .models import File
 from .serializers import ScriptSerializer
+from .serializers import FileSerializer
+from django.core.files.storage import FileSystemStorage
 from .execution import process
 # Create your views here.
 
@@ -37,6 +40,12 @@ def getRoutes(request):
         },
         {
             'Endpoint': '/scripts/id/execute/',
+            'method': 'GET',
+            'body': None,
+            'description': 'Returns a script'
+        },
+        {
+            'Endpoint': '/file/upload/',
             'method': 'GET',
             'body': None,
             'description': 'Returns a script'
@@ -101,7 +110,21 @@ def deleteScript(request, pk):
 def executeScript(request, pk):
     scripts = Script.objects.get(id=pk)
     serializer = ScriptSerializer(scripts, many=False)
-    
+
     res = process(serializer.data)
-    
+
     return Response(res)
+
+
+@api_view(['POST'])
+def uploadFile(request):
+
+    data = request.data
+    file = File.objects.create(
+        name=data['name'],
+        filestore=data['file']
+    )
+    res = FileSerializer(file, many=False)
+    # context['url'] = fs.url(name)
+
+    return Response(res.data)

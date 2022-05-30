@@ -12,18 +12,6 @@ def backtrace(id, edges):
         # backtrack(i)
     return inputs
 
-# def backtrack(root_i):
-#     for k in edges:
-#         if (root_i['source'] == k['target']):
-#             nid = indexing(k['source'])
-#             var= nid.split('_')[0][0]
-#             if var =='O':
-#                 back_inputs = backtrace(k['source'], edges)
-#                 # print(((k['source'].split('_'))[0]), back_inputs, data)
-#                 data[k['source']] = (execute(((k['source'].split('_'))[0]), back_inputs, data))
-#                 root_inputs.append(k)
-#             if var == 'V':
-#                 root_inputs.append(k)
 
 def execute(op, input, data):
     # print(data[input[0]['source']])
@@ -48,6 +36,7 @@ def process(dump):
     index = 0
     exec = 0
     fdata = json.loads(json.dumps(dump))
+    #region Data Dump
     # body = list(fdata.values())
     # data = json.dumps(body[1])
     # a = dump['body']
@@ -58,11 +47,13 @@ def process(dump):
     #     if id=='Output':
     #         print(id)
     # print(queue)
+    #endregion
     dump_elements = fdata['body']['elements']
     data = fdata['body']['data']
     elements = []
     edges = []
     root_inputs = []
+    outputs = []
 
     
     for i in dump_elements:
@@ -78,23 +69,28 @@ def process(dump):
     for i in edges:
         if (i['source'] == src):
             root = i 
-        
+    
+    print('root: ', root)  
             
     for k in edges:
         if (root['source'] == k['target']):
+            #Seperating Operation Nodes and Value Nodes
             nid = indexing(k['source'])
             var= nid.split('_')[0][0]
+            
             if var =='O':
                 back_inputs = backtrace(k['source'], edges)
+                # print('back', back_inputs)
                 # print(((k['source'].split('_'))[0]), back_inputs, data)
                 data[k['source']] = (execute(((k['source'].split('_'))[0]), back_inputs, data))
                 root_inputs.append(k)
             if var == 'V':
                 root_inputs.append(k)
-    print(((root['source'].split('_'))[0]), root_inputs, data)
-    
+                
+    # print(((root['source'].split('_'))[0]), root_inputs, data)
+    print('hello', (root['source'].split('_'))[0])
     op = execute(((root['source'].split('_'))[0]), root_inputs, data)
-    print(op)
+    # print(op)
 
     
     # return({'elements': elements, 
