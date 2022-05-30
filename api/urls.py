@@ -9,6 +9,7 @@ urlpatterns = [
     path("scripts/<str:pk>/delete/", views.deleteScript, name="delete-script"),
     path("scripts/<str:pk>/execute/", views.executeScript, name="execute-script"),
     path("file/upload/", views.uploadFile, name="upload-file"),
+    path("files/", views.getFiles, name="files"),
     path("scripts/<str:pk>/", views.getScript, name="script"),
 
 ]

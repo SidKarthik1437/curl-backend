@@ -128,3 +128,10 @@ def uploadFile(request):
     # context['url'] = fs.url(name)
 
     return Response(res.data)
+
+@api_view(['GET'])
+def getFiles(request):
+    files = File.objects.all()
+    serializer = FileSerializer(files, many=True)
+    
+    return Response(serializer.data)
